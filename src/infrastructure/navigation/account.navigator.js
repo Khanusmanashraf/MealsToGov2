@@ -1,12 +1,12 @@
 /* eslint-disable prettier/prettier */
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { AccountScreen } from "../../features/account/screens/account.screen";
 import { LoginScreen } from "../../features/account/screens/login.screen";
 import { RegisterScreen } from "../../features/account/screens/register.screen";
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export const AccountNavigator = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
