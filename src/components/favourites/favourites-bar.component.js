@@ -10,9 +10,18 @@ import { Text } from "../typography/text.component";
 const FavouritesWrapper = styled.View`
   padding: 10px;
 `;
+const NoFavouritesArea = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
 export const FavouritesBar = ({ favourites, onNavigate }) => {
   if (!favourites.length) {
-    return null;
+    return (
+      <NoFavouritesArea>
+        <Text>No Favourites yet</Text>
+      </NoFavouritesArea>
+    );
   }
   return (
     <FavouritesWrapper>

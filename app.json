@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "JobOK",
-    "slug": "JobOK",
+    "slug": "mealstogo",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c78341d0-d5b5-41fc-86b3-44cdfa25de83"
+      }
+    },
+    "owner": "namsunahk"
   }
 }

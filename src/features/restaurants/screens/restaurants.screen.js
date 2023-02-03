@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
-import { FlatList, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { SafeArea } from "../../../components/safe-area.component";
@@ -11,6 +11,7 @@ import { RestaurantsContext } from "../../../services/restaurants/restaurants.co
 import { FavouritesContext } from "../../../services/favourites/favourites.context";
 import { Search } from "../components/search.component";
 import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
+import { RestaurantList } from "../components/restaurant-list.styles";
 
 const ScreenLoader = styled.View`
   position: absolute;
@@ -47,7 +48,7 @@ export const RestaurantsScreen = ({ navigation }) => {
               onNavigate={navigation.navigate}
             />
           )}
-          <FlatList
+          <RestaurantList
             data={restaurants}
             renderItem={({ item }) => {
               return (
