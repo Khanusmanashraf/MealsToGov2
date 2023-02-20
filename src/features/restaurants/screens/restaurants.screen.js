@@ -3,6 +3,7 @@ import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 
+import { FadeInView } from "../../../components/animations/fade.animation";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import { SafeArea } from "../../../components/safe-area.component";
 import { Body } from "../../../components/safe-area.component";
@@ -59,7 +60,9 @@ export const RestaurantsScreen = ({ navigation }) => {
                     })
                   }
                 >
-                  <RestaurantInfoCard restaurant={item} />
+                  <FadeInView>
+                    <RestaurantInfoCard restaurant={item} />
+                  </FadeInView>
                 </TouchableOpacity>
               );
             }}
