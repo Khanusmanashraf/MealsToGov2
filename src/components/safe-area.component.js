@@ -11,6 +11,11 @@ export const SafeArea = styled(SafeAreaView)`
     isAndroid ? props.theme.colors.bg.primary : "white"};
 `;
 
+export const SafeAreaFlip = styled(SafeAreaView)`
+  flex: 1;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+`;
+
 export const SafeAreaFull = styled(SafeAreaView)`
   flex: 1;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
