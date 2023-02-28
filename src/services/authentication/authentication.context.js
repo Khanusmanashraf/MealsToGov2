@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState, createContext, useRef } from "react";
+import { Alert } from "react-native";
 import {
   signOut,
   createUserWithEmailAndPassword,
@@ -57,10 +58,21 @@ export const AuthenticationContextProvider = ({ children }) => {
   };
 
   const onLogout = () => {
-    signOut(auth).then(() => {
-      setUser(null);
-      setError(null);
-    });
+    Alert.alert("Hold on!", "Are you sure you want to go back?", [
+      {
+        text: "Cancel",
+        onPress: () => null,
+        style: "cancel",
+      },
+      {
+        text: "YES",
+        onPress: () =>
+          signOut(auth).then(() => {
+            setUser(null);
+            setError(null);
+          }),
+      },
+    ]);
   };
 
   return (

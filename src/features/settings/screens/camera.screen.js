@@ -6,21 +6,29 @@ import { View, TouchableOpacity } from "react-native";
 
 import { Text } from "../../../components/typography/text.component";
 import { SafeAreaFlip } from "../../../components/safe-area.component";
+import { LoadingScreen } from "../../loading.screen";
 
 const ProfileCamera = styled(Camera)`
   width: 100%;
   height: 100%;
 `;
 
-const ButtonContainer = styled(View)`
+export const ButtonContainer = styled(View)`
   width: 100%;
-  align-items: flex-end;
-  padding-right: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 20px;
 `;
 
-const FlipButton = styled(TouchableOpacity)``;
+const FlipButton = styled(TouchableOpacity)`
+  align-items: flex-end;
+`;
 
-export const CameraScreen = () => {
+export const BackButton = styled(TouchableOpacity)`
+  align-items: flex-start;
+`;
+
+export const CameraScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const cameraRef = useRef();
   const [type, setType] = useState(CameraType.back);
@@ -29,6 +37,7 @@ export const CameraScreen = () => {
     if (cameraRef) {
       const photo = await cameraRef.current.takePictureAsync();
       console.log(photo);
+      <View>{photo}</View>;
     }
   };
 
@@ -39,7 +48,7 @@ export const CameraScreen = () => {
     })();
   }, []);
   if (hasPermission === null) {
-    return <View />;
+    return <LoadingScreen />;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
@@ -50,6 +59,9 @@ export const CameraScreen = () => {
       <ProfileCamera ref={(camera) => (cameraRef.current = camera)} type={type}>
         <SafeAreaFlip>
           <ButtonContainer>
+            <BackButton onPress={() => navigation.goBack()}>
+              <Text style={{ fontSize: 26, color: "white" }}>Back</Text>
+            </BackButton>
             <FlipButton
               onPress={() => {
                 setType(
@@ -57,7 +69,7 @@ export const CameraScreen = () => {
                 );
               }}
             >
-              <Text style={{ fontSize: 30 }}>Flip</Text>
+              <Text style={{ fontSize: 26, color: "white" }}>Flip</Text>
             </FlipButton>
           </ButtonContainer>
         </SafeAreaFlip>
