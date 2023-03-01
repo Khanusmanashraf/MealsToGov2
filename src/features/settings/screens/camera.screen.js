@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { Camera, CameraType } from "expo-camera";
 import styled from "styled-components/native";
 import { View, TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Text } from "../../../components/typography/text.component";
 import { SafeAreaFlip } from "../../../components/safe-area.component";
 import { LoadingScreen } from "../../loading.screen";
+import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
 const ProfileCamera = styled(Camera)`
   width: 100%;
@@ -31,13 +33,14 @@ export const BackButton = styled(TouchableOpacity)`
 export const CameraScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const cameraRef = useRef();
+  const { user } = useContext(AuthenticationContext);
   const [type, setType] = useState(CameraType.back);
 
   const snap = async () => {
     if (cameraRef) {
       const photo = await cameraRef.current.takePictureAsync();
-      console.log(photo);
-      <View>{photo}</View>;
+      AsyncStorage.setItem(`${user.uid}-photo`, photo.uri);
+      navigation.goBack();
     }
   };
 
@@ -56,7 +59,11 @@ export const CameraScreen = ({ navigation }) => {
 
   return (
     <TouchableOpacity onPress={snap}>
-      <ProfileCamera ref={(camera) => (cameraRef.current = camera)} type={type}>
+      <ProfileCamera
+        ref={(camera) => (cameraRef.current = camera)}
+        type={type}
+        ratio={"16:9"}
+      >
         <SafeAreaFlip>
           <ButtonContainer>
             <BackButton onPress={() => navigation.goBack()}>
